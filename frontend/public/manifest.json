@@ -1,0 +1,39 @@
+{
+  "name": "Cloud ERA - AI Cloud Services Assistant",
+  "short_name": "Cloud ERA",
+  "description": "AI-powered chatbot specialized in cloud and security assistance",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#3B82F6",
+  "orientation": "portrait-primary",
+  "categories": ["productivity", "utilities", "business"],
+  "lang": "en",
+  "icons": [
+    {
+      "src": "/src/assets/images/mlc-logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/src/assets/images/mlc-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/src/assets/images/mstile-150x150.png",
+      "sizes": "150x150",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/src/assets/images/mlc-logo.png",
+      "type": "image/png",
+      "sizes": "1280x720",
+      "form_factor": "wide"
+    }
+  ]
+}

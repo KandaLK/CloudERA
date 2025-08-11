@@ -1,0 +1,32 @@
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+sqlalchemy==2.0.23
+alembic==1.12.1
+psycopg2-binary==2.9.9
+python-jose[cryptography]==3.3.0
+passlib==1.7.4
+argon2-cffi==23.1.0
+python-multipart==0.0.6
+python-dotenv==1.0.0
+pydantic==2.5.0
+pydantic-settings==2.1.0
+openai==1.3.7
+httpx==0.25.2
+
+# Multi-Agent Framework Dependencies
+langchain==0.1.0
+langchain-openai==0.0.5
+langchain-community==0.0.10
+langgraph==0.0.16
+chromadb==0.4.21
+langchain-chroma==0.1.2
+tiktoken==0.5.2
+
+# Web Search Dependencies
+tavily-python==0.3.3
+requests==2.31.0
+
+# LIGHTRAG Knowledge Base Dependencies
+lightrag==0.0.2
+neo4j==5.15.0
+faiss-cpu==1.7.4

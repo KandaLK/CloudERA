@@ -1,0 +1,57 @@
+{
+  "name": "cloud-era-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Cloud ERA - AI-powered chatbot specialized in cloud and security assistance",
+  "keywords": [
+    "react",
+    "typescript",
+    "vite",
+    "ai",
+    "chatbot",
+    "cloud-services"
+  ],
+  "author": "Cloud ERA Team",
+  "license": "MIT",
+  "homepage": ".",
+  "scripts": {
+    "dev": "vite --mode development",
+    "build": "tsc && vite build --mode production",
+    "build:dev": "tsc && vite build --mode development",
+    "preview": "vite preview",
+    "serve": "vite preview --port 4173",
+    "typecheck": "tsc --noEmit",
+    "lint": "echo 'Linting not configured - add ESLint if needed'",
+    "clean": "rm -rf dist",
+    "start:prod": "npm run build && npm run serve"
+  },
+  "dependencies": {
+    "@codemirror/lang-cpp": "^6.0.3",
+    "@codemirror/lang-css": "^6.3.1",
+    "@codemirror/lang-html": "^6.4.9",
+    "@codemirror/lang-java": "^6.0.2",
+    "@codemirror/lang-javascript": "^6.2.4",
+    "@codemirror/lang-json": "^6.0.2",
+    "@codemirror/lang-php": "^6.0.2",
+    "@codemirror/lang-python": "^6.2.1",
+    "@codemirror/lang-rust": "^6.0.2",
+    "@codemirror/lang-sql": "^6.9.1",
+    "@codemirror/lang-xml": "^6.1.0",
+    "@codemirror/lang-yaml": "^6.1.2",
+    "@uiw/codemirror-theme-github": "^4.24.2",
+    "@uiw/codemirror-theme-vscode": "^4.24.2",
+    "@uiw/react-codemirror": "^4.24.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router-dom": "^6.28.0",
+    "react-markdown": "^10.1.0",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.14.0",
+    "@types/react-dom": "^19.1.7",
+    "typescript": "~5.7.2",
+    "vite": "^6.2.0"
+  }
+}

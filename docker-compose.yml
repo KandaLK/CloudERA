@@ -1,0 +1,120 @@
+version: '3.8'
+
+services:
+  # Neo4j database for knowledge base
+  neo4j:
+    image: neo4j:5.15
+    container_name: cloud-era-neo4j
+    restart: unless-stopped
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      - NEO4J_AUTH=${NEO4J_AUTH}
+      - NEO4J_PLUGINS=${NEO4J_PLUGINS}
+      - NEO4J_dbms_security_procedures_unrestricted=${NEO4J_dbms_security_procedures_unrestricted}
+      - NEO4J_dbms_memory_heap_initial__size=${NEO4J_dbms_memory_heap_initial__size}
+      - NEO4J_dbms_memory_heap_max__size=${NEO4J_dbms_memory_heap_max__size}
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+    networks:
+      - cloud-era-network
+    healthcheck:
+      test: ["CMD", "cypher-shell", "MATCH () RETURN count(*) AS count"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  # Backend service
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: cloud-era-backend
+    restart: unless-stopped
+    ports:
+      - "${BACKEND_PORT:-8000}:${BACKEND_PORT:-8000}"
+    environment:
+      # Backend Configuration
+      - DATABASE_URL=${BACKEND_DATABASE_URL}
+      - SECRET_KEY=${BACKEND_SECRET_KEY}
+      - ALGORITHM=${BACKEND_ALGORITHM}
+      - ACCESS_TOKEN_EXPIRE_MINUTES=${BACKEND_ACCESS_TOKEN_EXPIRE_MINUTES}
+      - HOST=${BACKEND_HOST}
+      - PORT=${BACKEND_PORT:-8000}
+      - DEBUG=${BACKEND_DEBUG}
+      - CORS_ORIGINS=${BACKEND_CORS_ORIGINS}
+      - MAX_CONCURRENT_USERS=${BACKEND_MAX_CONCURRENT_USERS}
+      
+      # AI Services
+      - OPENAI_API_KEY=${SHARED_OPENAI_API_KEY}
+      - OPENAI_MODEL=${SHARED_OPENAI_MODEL}
+      - TAVILY_API_KEY=${SHARED_TAVILY_API_KEY}
+      - JINA_API_KEY=${SHARED_JINA_API_KEY}
+      
+      # Knowledge Base
+      - NEO4J_URI=${SHARED_NEO4J_URI}
+      - NEO4J_USERNAME=${SHARED_NEO4J_USERNAME}
+      - NEO4J_PASSWORD=${SHARED_NEO4J_PASSWORD}
+      - LIGHTRAG_WORKING_DIR=${SHARED_LIGHTRAG_WORKING_DIR}
+      
+      # Web Search
+      - WEB_SEARCH_MAX_RESULTS=${SHARED_WEB_SEARCH_MAX_RESULTS}
+      - WEB_SCRAPING_TOKEN_LIMIT=${SHARED_WEB_SCRAPING_TOKEN_LIMIT}
+      - WEB_SEARCH_TIMEOUT=${SHARED_WEB_SEARCH_TIMEOUT}
+    volumes:
+      - ./backend/data:/app/data
+    depends_on:
+      - neo4j
+    networks:
+      - cloud-era-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${BACKEND_PORT:-8000}/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Frontend service
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: cloud-era-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - NODE_ENV=${NODE_ENV}
+      - VITE_API_BASE_URL=${FRONTEND_API_BASE_URL}
+      - VITE_APP_NAME=${FRONTEND_APP_NAME}
+      - VITE_APP_VERSION=${FRONTEND_APP_VERSION}
+      - VITE_APP_ENV=${FRONTEND_APP_ENV}
+      - VITE_DEBUG=${FRONTEND_DEBUG}
+      - VITE_ENABLE_LOGGING=${FRONTEND_ENABLE_LOGGING}
+      - VITE_ENABLE_DEV_TOOLS=${FRONTEND_ENABLE_DEV_TOOLS}
+      - VITE_SECURE_COOKIES=${FRONTEND_SECURE_COOKIES}
+      - VITE_ENABLE_HTTPS_ONLY=${FRONTEND_ENABLE_HTTPS_ONLY}
+    depends_on:
+      - backend
+    networks:
+      - cloud-era-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+
+volumes:
+  neo4j_data:
+    driver: local
+  neo4j_logs:
+    driver: local
+
+networks:
+  cloud-era-network:
+    driver: bridge

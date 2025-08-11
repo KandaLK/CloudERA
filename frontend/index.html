@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/src/assets/images/mlc-logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Cloud ERA - AI-powered chatbot specialized in cloud and security assistance using advanced multi-agent architecture" />
+    <meta name="keywords" content="cloud services, AI assistant, AWS, Azure, GCP, security, chatbot" />
+    <meta name="author" content="Cloud ERA Team" />
+    
+    <!-- PWA and mobile optimizations -->
+    <meta name="theme-color" content="#3B82F6" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Cloud ERA" />
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Cloud ERA - AI Cloud Services Assistant" />
+    <meta property="og:description" content="Intelligent AI assistant specialized in cloud and security guidance" />
+    <meta property="og:image" content="/src/assets/images/mlc-logo.png" />
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    
+    <title>Cloud ERA - AI Cloud Services Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              'dark-main': '#121212',
+              'dark-secondary': '#1E1E1E',
+              'dark-accent': '#2A2A2A',
+              'dark-border': '#333333',
+              'dark-text': '#EAEAEA',
+              'dark-text-secondary': '#A0A0A0',
+
+              'light-main': '#F7F7F7',
+              'light-secondary': '#FFFFFF',
+              'light-accent': '#F0F0F0',
+              'light-border': '#E0E0E0',
+              'light-text': '#111827',
+              'light-text-secondary': '#6B7280',
+              
+              'brand-blue': '#3B82F6',
+              'brand-blue-light': 'rgba(59, 130, 246, 0.1)',
+              'accent-red': '#EF4444',
+              'accent-light-blue': 'rgba(96, 165, 250, 0.2)',
+              'accent-green-light': 'rgba(74, 222, 128, 0.25)',
+              'accent-red-light': 'rgba(248, 113, 113, 0.25)',
+
+              'brand-user-bg': '#F0F0F0',
+              'brand-user-bg-dark': '#333333',
+            },
+            boxShadow: {
+                'lg-blue': '0 10px 15px -3px rgba(59, 130, 246, 0.2), 0 4px 6px -4px rgba(59, 130, 246, 0.1)',
+            },
+            backdropBlur: {
+              'xl': '24px',
+            }
+          }
+        }
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://esm.sh/react@^19.1.0/",
+    "react": "https://esm.sh/react@^19.1.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.1.0/"
+  }
+}
+</script>
+<link rel="stylesheet" href="/src/styles/index.css">
+</head>
+  <body class="bg-light-main dark:bg-dark-main">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
